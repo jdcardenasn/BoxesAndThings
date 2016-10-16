@@ -1,4 +1,3 @@
-
 package boxes.and.things;
 
 import java.util.ArrayList;
@@ -6,23 +5,37 @@ import java.util.ArrayList;
 /*
  * @author Juan
  */
-public class Box implements ToBeStore{
-    private ArrayList<Book> stored1;
-    private ArrayList<CD> stored2;
+public final class Box implements ToBeStore {
 
-    double weight=0;
+    private ArrayList<ToBeStore> stored;
+    private double maxWeight;
+    private double totalWeight;
 
-    public Box(double maxWeight) {        
+        public void setMaxWeight(double maxWeight) {
+        this.maxWeight = maxWeight;
+    }
+
+    public Box(double maxWeight) {
+        this.stored=new ArrayList<>();
+        setMaxWeight(maxWeight);
     }
     
+    public void add(ToBeStore item) {
+       stored.add(item);
+    }
+   
+
     @Override
     public double weight() {
-       return weight;
+        for(ToBeStore item:stored){
+            totalWeight=totalWeight+item.weight();            
+        }
+        return totalWeight;
     }
 
-    void add(Book book) {
+     
+       public String toString ()
+    {
+        return ( "Box: " + stored.size() + " things, total weight: " + this.weight()+" kg." );
     }
-    
-    void add(CD cd){        
-    }
-   }
+}
