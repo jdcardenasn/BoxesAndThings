@@ -11,31 +11,29 @@ public final class Box implements ToBeStore {
     private double maxWeight;
     private double totalWeight;
 
-        public void setMaxWeight(double maxWeight) {
+    public void setMaxWeight(double maxWeight) {
         this.maxWeight = maxWeight;
     }
 
     public Box(double maxWeight) {
-        this.stored=new ArrayList<>();
+        this.stored = new ArrayList<>();
         setMaxWeight(maxWeight);
     }
-    
+
     public void add(ToBeStore item) {
-       stored.add(item);
+        if (totalWeight + item.weight() <= maxWeight) {
+            totalWeight = totalWeight + item.weight();
+            stored.add(item);
+        }
+       // System.out.println(totalWeight);
     }
-   
 
     @Override
     public double weight() {
-        for(ToBeStore item:stored){
-            totalWeight=totalWeight+item.weight();            
-        }
         return totalWeight;
     }
 
-     
-       public String toString ()
-    {
-        return ( "Box: " + stored.size() + " things, total weight: " + this.weight()+" kg." );
+    public String toString() {
+        return ("Box: " + stored.size() + " things, total weight: " + this.weight() + " kg.");
     }
 }
